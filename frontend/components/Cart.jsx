@@ -15,7 +15,7 @@ export default function Cart() {
     const fetchCartData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/carts/${cartId}`,
+          `https://tienda-apple-import.onrender.com/api/carts/${cartId}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +42,7 @@ export default function Cart() {
 
   const handleClick = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/carts/checkout", {
+      const response = await fetch("https://tienda-apple-import.onrender.com/api/carts/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

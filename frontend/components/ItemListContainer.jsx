@@ -12,7 +12,7 @@ const ItemListContainer = () => {
     const fetchProducts = async () => {
       try {
         const queryParams = category ? `?category=${category}` : "";
-        const response = await fetch(`http://localhost:8080/api/products${queryParams}`, {
+        const response = await fetch(`https://tienda-apple-import.onrender.com/api/products${queryParams}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

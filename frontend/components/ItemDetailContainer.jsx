@@ -11,7 +11,7 @@ export default function ItemDetailContainer() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/products/${pid}`, {
+        const response = await fetch(`https://tienda-apple-import.onrender.com/api/products/${pid}`, {
           method: 'GET', 
           headers: {
             "Content-Type": "application/json",

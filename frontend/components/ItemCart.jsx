@@ -7,7 +7,7 @@ export default function ItemCart({ product }) {
   const removeProduct = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/carts/${cartId}/products/${productId}`,
+        `https://tienda-apple-import.onrender.com/api/carts/${cartId}/products/${productId}`,
         {
           method: "DELETE",
           headers: {

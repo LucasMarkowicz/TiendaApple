@@ -9,7 +9,7 @@ export default function Navbar({ setIsLoggedIn }) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/users/logout", {
+      const response = await fetch("https://tienda-apple-import.onrender.com/api/users/logout", {
         method: "POST",
         credentials: "include",
       });

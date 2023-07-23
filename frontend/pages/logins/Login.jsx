@@ -12,7 +12,7 @@ const Login = ({ setIsLoggedIn }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
+      const response = await fetch('https://tienda-apple-import.onrender.com/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -38,7 +38,7 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   const handleGithubLogin = () => {
-    window.location.href = 'http://localhost:8080/auth/github'; // Redirige a la página de inicio de sesión de GitHub
+    window.location.href = 'https://tienda-apple-import.onrender.com/auth/github'; // Redirige a la página de inicio de sesión de GitHub
   };
 
   return (

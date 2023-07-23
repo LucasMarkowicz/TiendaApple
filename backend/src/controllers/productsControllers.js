@@ -6,7 +6,7 @@ const productErrors = require("../errors/productErrors.js");
 const logger = require("../config/logger.js");
 const accessRole = require("../middlewares/accessRole.js")
 
-router.get("/", accessRole(['admin', 'user']), async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     let limit;
     let sortBy;
