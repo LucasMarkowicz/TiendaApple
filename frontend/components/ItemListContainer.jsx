@@ -32,7 +32,7 @@ const ItemListContainer = () => {
         // Realizar el fetch POST para la creación del carrito
         const createCart = async () => {
           try {
-            const response = await fetch("http://localhost:8080/api/carts", {
+            const response = await fetch("https://tienda-apple-import.onrender.com/api/carts", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
