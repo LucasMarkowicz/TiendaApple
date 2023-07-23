@@ -40,7 +40,6 @@ const sessionOptions = {
     ttl: 120000,
   }),
   cookie: {
-    
     sameSite: "none",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
   },
 };
