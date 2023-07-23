@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://tienda-apple-import-front.onrender.com/",
   credentials: true,
 };
 
@@ -53,10 +53,10 @@ app.get("/auth/github", passport.authenticate("github"));
 
 app.get(
   "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "http://localhost:5173/login" }),
+  passport.authenticate("github", { failureRedirect: "https://tienda-apple-import-front.onrender.com/login" }),
   (req, res) => {
     req.session.user = req.user;
-    res.redirect("http://localhost:5173/");
+    res.redirect("https://tienda-apple-import-front.onrender.com/");
   }
 );
 
