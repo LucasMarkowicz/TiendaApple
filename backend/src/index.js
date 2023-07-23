@@ -9,7 +9,6 @@ const port = process.env.PORT || 8080;
 const MongoStore = require("connect-mongo");
 const passport = require("../src/config/passport.js");
 const server = http.createServer(app);
-//const io = require("socket.io")(server);
 const ProductManager = require("../src/daos/productManager.js");
 const manager = new ProductManager();
 const cors = require("cors");
@@ -19,9 +18,6 @@ const swaggerUiExpress = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
-
-
-
 const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
@@ -30,23 +26,26 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({
-      mongoUrl: process.env.MONGODB_URI,
-      ttl: 120000,
-    }),
-  })
-);
+// Configuración de la sesión
+const sessionOptions = {
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 120000,
+  }),
+  cookie: {
+    
+    sameSite: "none",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
+  },
+};
+
+app.use(session(sessionOptions));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -64,7 +63,6 @@ app.get(
 
 router(app);
 
-
 //logger
 
 app.get("/loggerTest", (req, res) => {
@@ -76,8 +74,6 @@ app.get("/loggerTest", (req, res) => {
   logger.fatal("Este es un mensaje de nivel fatal de prueba");
   res.send("Logs registrados en la consola de prueba");
 });
-
-
 
 //Swagger
 
@@ -99,14 +95,11 @@ const specs = swaggerJSDoc(swaggerOptions);
 
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
-
 //mercadopago
 
 mercadopago.configure({
   access_token: process.env.MERCADOPAGO,
 });
-
-
 
 server.listen(port, () => {
   console.log(`Servidor iniciado en http://localhost:${port}`);
