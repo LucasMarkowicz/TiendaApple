@@ -1,0 +1,148 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID del producto
+        title:
+          type: string
+          description: Título del producto
+        description:
+          type: string
+          description: Descripción del producto
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: URL de la imagen del producto
+        code:
+          type: number
+          description: Código del producto
+        stock:
+          type: number
+          description: Cantidad en stock del producto
+        category:
+          type: string
+          description: Categoría del producto
+
+paths:
+  /api/products:
+    get:
+      summary: Obtener lista de productos
+      tags:
+        - Products
+      description: Obtiene la lista de productos disponibles
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+
+    post:
+      summary: Agregar un nuevo producto
+      tags:
+        - Products
+      description: Agrega un nuevo producto a la lista
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Producto agregado exitosamente
+
+  /api/products/{pid}:
+    get:
+      summary: Obtener un producto por ID
+      tags:
+        - Products
+      description: Obtiene la información de un producto por su ID
+      parameters:
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Información del producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: El producto no fue encontrado
+
+    put:
+      summary: Actualizar un producto por ID
+      tags:
+        - Products
+      description: Actualiza la información de un producto por su ID
+      parameters:
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Producto actualizado exitosamente
+        '404':
+          description: El producto no fue encontrado
+
+    delete:
+      summary: Borrar un producto por ID
+      tags:
+        - Products
+      description: Borra un producto por su ID
+      parameters:
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto borrado exitosamente
+        '404':
+          description: El producto no fue encontrado
+
+  /api/products/json:
+    get:
+      summary: Obtener lista de productos en formato JSON
+      tags:
+        - Products
+      description: Obtiene la lista de productos disponibles en formato JSON
+      responses:
+        '200':
+          description: Lista de productos en formato JSON
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'

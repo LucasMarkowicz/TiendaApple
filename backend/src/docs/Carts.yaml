@@ -1,0 +1,232 @@
+components:
+  schemas:
+    CartProduct:
+      type: object
+      properties:
+        product:
+          type: string
+          description: ID del producto
+        objeto:
+          type: object
+          description: Objeto del producto
+        quantity:
+          type: number
+          description: Cantidad del producto en el carrito
+
+   
+
+paths:
+  /api/carts:
+    post:
+      summary: Crear un nuevo carrito
+      tags:
+        - Carts
+      description: Crea un nuevo carrito
+      responses:
+        "200":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cartId:
+                    type: string
+                    description: ID del carrito
+
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito por ID
+      tags:
+        - Carts    
+      description: Obtiene la información de un carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Información del carrito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productArray:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CartProduct"
+                  cid:
+                    type: string
+                    description: ID del carrito
+        "404":
+          description: El carrito no fue encontrado
+
+    delete:
+      summary: Borrar un carrito por ID
+      tags:
+        - Carts
+      description: Borra un carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito borrado exitosamente
+        "404":
+          description: El carrito no fue encontrado
+
+  /api/carts/{cid}/json:
+    get:
+      summary: Obtener un carrito por ID en formato JSON
+      tags:
+        - Carts
+      description: Obtiene la información de un carrito por su ID en formato JSON
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Información del carrito en formato JSON
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productArray:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CartProduct"
+                  cid:
+                    type: string
+                    description: ID del carrito
+        "404":
+          description: El carrito no fue encontrado
+
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Agregar un producto a un carrito
+      tags:
+        - Carts
+      description: Agrega un producto a un carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartProduct"
+      responses:
+        "200":
+          description: Producto agregado al carrito exitosamente
+        "404":
+          description: El carrito no fue encontrado
+
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags:
+        - Carts
+      description: Elimina un producto de un carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado del carrito exitosamente
+
+    put:
+      summary: Actualizar la cantidad de un producto en el carrito
+      tags:
+        - Carts
+      description: Actualiza la cantidad de un producto en el carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+                  description: Nueva cantidad del producto en el carrito
+      responses:
+        "200":
+          description: Cantidad del producto en el carrito actualizada exitosamente
+        "404":
+          description: El carrito no fue encontrado
+
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Realizar una compra con el carrito
+      tags:
+        - Carts
+      description: Realiza una compra con el carrito por su ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Compra realizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de éxito de la compra
+                  ticket:
+                    type: object
+                    description: Información del ticket de compra
+        "404":
+          description: El carrito no fue encontrado

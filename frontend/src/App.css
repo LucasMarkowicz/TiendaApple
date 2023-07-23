@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap');
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.logoApple {
+  width: 21.67px;
+  height: 26.62px;
+  float: right;
+  margin-left: 10px;
+}
+
+.itemCart {
+  margin-top: 20px;
+}
+
+.counterButton {
+  margin-bottom: 20px;
+}
+
+
+.fixed-width-nav {
+  width: 100%; 
+  max-width: 1000px; /* Por ejemplo, aquí he establecido un máximo de 1200px */
+  margin: 0 auto; /* Para centrar el nav en la página */
+}
+
