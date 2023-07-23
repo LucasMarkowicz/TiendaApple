@@ -1,7 +1,7 @@
 const http = require("http");
 const express = require("express");
 const router = require("../src/routes/index.js");
-const session = require("express-session");
+const session = require("cookie-session");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -9,7 +9,6 @@ const port = process.env.PORT || 8080;
 const MongoStore = require("connect-mongo");
 const passport = require("../src/config/passport.js");
 const server = http.createServer(app);
-//const io = require("socket.io")(server);
 const ProductManager = require("../src/daos/productManager.js");
 const manager = new ProductManager();
 const cors = require("cors");
@@ -19,8 +18,6 @@ const swaggerUiExpress = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
-
-
 const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
@@ -29,7 +26,16 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+// Configuración de las cookies de sesión con cookie-session
+const cookieOptions = {
+  secure: true, // Solo se enviará la cookie a través de conexiones HTTPS
+  httpOnly: true, // La cookie no será accesible desde el lado del cliente (JavaScript)
+  sameSite: "none", // Permite que la cookie se envíe en solicitudes desde sitios externos
+  maxAge: 50000, // Tiempo de expiración de la cookie (en milisegundos)
+  keys: ["secret"], // Clave secreta para firmar la cookie
+};
 
+app.use(session(cookieOptions));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -63,9 +69,7 @@ app.get(
 
 router(app);
 
-
 //logger
-
 app.get("/loggerTest", (req, res) => {
   logger.debug("Este es un mensaje de nivel debug de prueba");
   logger.http("Este es un mensaje de nivel http de prueba");
@@ -76,10 +80,7 @@ app.get("/loggerTest", (req, res) => {
   res.send("Logs registrados en la consola de prueba");
 });
 
-
-
 //Swagger
-
 const swaggerOptions = {
   definition: {
     openapi: "3.0.1",
@@ -98,18 +99,15 @@ const specs = swaggerJSDoc(swaggerOptions);
 
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
-
 //mercadopago
-
 mercadopago.configure({
   access_token: process.env.MERCADOPAGO,
 });
 
-
-
 server.listen(port, () => {
   console.log(`Servidor iniciado en http://localhost:${port}`);
 });
+
 
 
 
