@@ -24,9 +24,7 @@ app.use((req, res, next) => {
   // Opciones comunes para todas las cookies
   const cookieOptions = {
     domain: ".tiendaappleimport.online",
-    secure: true,
-    httpOnly: true,
-    sameSite: 'none'
+    sameSite: 'lax'
   };
 
   // Aplicar las opciones comunes a todas las cookies establecidas
