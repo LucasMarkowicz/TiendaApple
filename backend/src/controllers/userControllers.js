@@ -82,5 +82,16 @@ router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   }
 });
 
+router.get('/sendmail', async (req, res) => {
+  try {
+    const userEmail = 'lucas.a.markowicz@gmail.com'; // Correo electrónico del destinatario (cambia esto por el correo que desees).
+    await sendEmail(userEmail);
+    res.send('Correo electrónico enviado correctamente');
+  } catch (error) {
+    console.error('Error al enviar el correo electrónico:', error);
+    res.status(500).send('Error al enviar el correo electrónico');
+  }
+});
+
 module.exports = router;
 
