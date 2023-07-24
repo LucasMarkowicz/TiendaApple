@@ -81,7 +81,7 @@ router.delete("/inactive", accessRole(['admin']), async (req, res) => {
 
     // Notify users via email
     const deletedUserEmails = deletedUsers.map(user => user.email);
-    await sendEmailToUsers(deletedUserEmails);
+    await sendIndividualEmailsToUsers(deletedUserEmails);
 
     res.json({ message: `Usuarios eliminados por inactividad` });
   } catch (error) {
@@ -90,15 +90,18 @@ router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   }
 });
 
-async function sendEmailToUsers(emails) {
+async function sendIndividualEmailsToUsers(emails) {
   try {
-    // Assuming the sendEmail function can handle sending to multiple recipients.
-    await sendEmail(emails);
+    for (const email of emails) {
+      // Assuming the sendEmail function can handle sending to a single recipient.
+      await sendEmail(email);
+    }
   } catch (error) {
     console.error('Error al enviar el correo electrónico:', error);
     throw new Error('Error al enviar el correo electrónico');
   }
 }
+
 
 module.exports = router;
 
