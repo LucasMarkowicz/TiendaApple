@@ -44,6 +44,10 @@ class UserManager {
         throw new Error(userErrors.INVALID_PASSWORD);
       }
 
+      // Update the lastActive field to the current date and time.
+      user.lastActive = moment();
+      await user.save(); // Save the changes to the user document.
+
       return user;
     } catch (error) {
       console.error(`Error al iniciar sesión del usuario: ${error}`);
