@@ -17,6 +17,26 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
+const cookie = require("cookie"); // Importar la biblioteca 'cookie'
+
+// Middleware personalizado para configurar opciones comunes para todas las cookies
+app.use((req, res, next) => {
+  // Opciones comunes para todas las cookies
+  const cookieOptions = {
+    domain: ".tiendaappleimport.online",
+    secure: true,
+    httpOnly: true,
+    // Agrega otras opciones comunes aquí según tus necesidades
+  };
+
+  // Aplicar las opciones comunes a todas las cookies establecidas
+  res.cookie = function (name, value, options) {
+    const mergedOptions = Object.assign({}, cookieOptions, options);
+    return res.append("Set-Cookie", cookie.serialize(name, value, mergedOptions));
+  };
+
+  next();
+});
 
 const corsOptions = {
   origin: ["https://api.tiendaappleimport.online/", "https://tiendaappleimport.online"],
@@ -39,9 +59,6 @@ const sessionOptions = {
     mongoUrl: process.env.MONGODB_URI,
     ttl: 120000,
   }),
-  cookie: {
-    sameSite: "none",   
-  },
 };
 
 app.use(session(sessionOptions));
@@ -103,6 +120,7 @@ mercadopago.configure({
 server.listen(port, () => {
   console.log(`Servidor iniciado en ${port}`);
 });
+
 
 
 
