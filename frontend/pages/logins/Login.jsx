@@ -62,7 +62,7 @@ const Login = ({ setIsLoggedIn }) => {
           required
           className='control'
         />
-        <button type="submit" className="control">Iniciar sesión</button>
+        <button type="submit" className="control">Login</button>
       </form>
       <p>You could also log in with GitHub:</p>
       <button onClick={handleGithubLogin} className="control github-button">
