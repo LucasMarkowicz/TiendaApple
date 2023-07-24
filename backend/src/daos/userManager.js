@@ -79,13 +79,15 @@ class UserManager {
   async removeInactiveUsers(inactivePeriodInMinutes) {
     try {
       const inactiveThreshold = moment().subtract(inactivePeriodInMinutes, 'minutes');
-      const deletedUsers = await User.deleteMany({ lastActive: { $lt: inactiveThreshold } });
+      const deletedUsers = await User.find({ lastActive: { $lt: inactiveThreshold } });
+      await User.deleteMany({ lastActive: { $lt: inactiveThreshold } });
       return deletedUsers;
     } catch (error) {
       console.error(`Error al eliminar usuarios inactivos: ${error}`);
       throw new Error(userErrors.GENERAL_ERROR);
     }
   }
+  
 }
 
 
