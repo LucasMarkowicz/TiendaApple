@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-  origin: ["https://api.tiendaappleimport.online/", "https://tiendaappleimport.online"],
+  origin: ["https://api.tiendaappleimport.online", "https://tiendaappleimport.online"],
   credentials: true,
 };
 
@@ -51,7 +51,7 @@ app.use(express.static(__dirname + "/public"));
 
 // Configuración de la sesión
 const sessionOptions = {
-  secret: "secret",
+  secret: "process.env.SECRET",
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({
@@ -60,7 +60,7 @@ const sessionOptions = {
   }),
 };
 
-app.use(session(sessionOptions));
+app.use(session(sessionOptions));9
 
 app.use(passport.initialize());
 app.use(passport.session());
