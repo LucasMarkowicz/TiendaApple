@@ -26,7 +26,7 @@ app.use((req, res, next) => {
     domain: ".tiendaappleimport.online",
     secure: true,
     httpOnly: true,
-    // Agrega otras opciones comunes aquí según tus necesidades
+    sameSite: 'none'
   };
 
   // Aplicar las opciones comunes a todas las cookies establecidas
@@ -115,6 +115,18 @@ app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 mercadopago.configure({
   access_token: process.env.MERCADOPAGO,
+});
+
+
+app.get("/ejemplo", (req, res) => {
+  // Establecer la cookie utilizando res.cookie() que hemos configurado previamente
+  res.cookie("ejemplo_cookie", "valor_de_la_cookie", {
+    // Puedes agregar opciones específicas para esta cookie si lo deseas
+    // Por ejemplo, una fecha de vencimiento para que expire después de un tiempo:
+    expires: new Date(Date.now() + 3600000), // Expira en una hora (3600000 ms)
+  });
+
+  res.send("Cookie de ejemplo establecida");
 });
 
 server.listen(port, () => {
