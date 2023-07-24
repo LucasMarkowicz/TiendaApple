@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://tienda-apple-import.onrender.com/api/users/register', {
+      const response = await fetch('https://api.tiendaappleimport.online/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, role }),
