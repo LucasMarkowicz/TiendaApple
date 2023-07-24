@@ -39,6 +39,11 @@ const sessionOptions = {
     mongoUrl: process.env.MONGODB_URI,
     ttl: 120000,
   }),
+  cookie: {
+    secure: true,       
+    httpOnly: true,     
+    domain: ".tiendaappleimport.online" 
+  },
 };
 
 app.use(session(sessionOptions));
