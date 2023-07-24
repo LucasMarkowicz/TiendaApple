@@ -69,7 +69,7 @@ router.get("/", accessRole(['admin']), async (req, res) => {
 
 router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   try {
-    const deletedUsers = await users.removeInactiveUsers(30);
+    const deletedUsers = await users.removeInactiveUsers(3);
     console.log("Usuarios eliminados por inactividad:", deletedUsers);
 
     // Notify users via email
