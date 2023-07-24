@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
-  origin: "https://tienda-apple-import-front.onrender.com",
+  origin: "*",
   credentials: true,
 };
 
@@ -40,9 +40,7 @@ const sessionOptions = {
     ttl: 120000,
   }),
   cookie: {
-    secure: false,      // Marcar como true para enviar cookies solo a través de HTTPS
-    httpOnly: false,    // Impedir que las cookies sean accesibles a través de JavaScript
-    sameSite: "none",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
+    sameSite: "lax",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
   },
 };
 
