@@ -69,7 +69,7 @@ const Login = ({ setIsLoggedIn }) => {
         Log in with GitHub
       </button>
       <p>Don't have an account? Press the following button to register:</p>
-      <button onClick={handleRegister} className="register-button">Registrarse</button>
+      <button onClick={handleRegister} className="register-button">Register</button>
     </div>
   );
 };
