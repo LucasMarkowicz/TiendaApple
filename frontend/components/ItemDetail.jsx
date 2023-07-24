@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import ItemCount from './ItemCount.jsx';
-import { Link } from 'react-router-dom';
-
 export default function ItemDetail({ data, addToCart }) {
   const [goToCart, setGoToCart] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onAdd = (quantity) => {
-    setTimeout(() => {
-      setGoToCart(true);
-    }, 1000);
-
-    addToCart(quantity);
+  const onAdd = async (quantity) => {
+    setIsLoading(true);
+    await addToCart(quantity);
+    setIsLoading(false);
+    setGoToCart(true);
   };
 
   return (
@@ -34,7 +30,9 @@ export default function ItemDetail({ data, addToCart }) {
                 <p className="card-text">Description: {data.description}</p>
                 <p>{data.stock > 0 ? "In stock" : "Unavailable"}</p>
                 <div></div>
-                {goToCart ? (
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : goToCart ? (
                   <button className="btn btn-primary">
                     <Link to="/cart">Go to Cart</Link>
                   </button>
