@@ -1,3 +1,7 @@
+import React, { useState } from "react";
+import ItemCount from './ItemCount.jsx';
+import { Link } from 'react-router-dom';
+
 export default function ItemDetail({ data, addToCart }) {
   const [goToCart, setGoToCart] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
