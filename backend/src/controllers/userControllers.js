@@ -5,7 +5,7 @@ const users = new UserManager();
 const userErrors = require('../errors/userErrors.js');
 const logger = require("../config/logger.js");
 const accessRole = require("../middlewares/accessRole.js")
-const nodemailer = require('nodemailer');
+const { sendEmail } = require('../config/nodemailer.js'); // Import the email sending function
 
 
 
@@ -70,50 +70,15 @@ router.get("/", accessRole(['admin']), async (req, res) => {
 router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   try {
     const deletedUsers = await users.removeInactiveUsers(30); 
+    
+    for (const user of deletedUsers) {
+      await sendEmail(user.email);
+    }
+
     res.json({ message: `Usuarios eliminados por inactividad` });
   } catch (error) {
     logger.error("Error en la ruta DELETE '/users/inactive':", error);
     res.status(500).json({ message: userErrors.GENERAL_ERROR });
-  }
-});
-
-
-// Nodemailer configuration
-const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  auth: {
-    user: 'karlee46@ethereal.email', // Replace with your Ethereal Email address
-    pass: 'hnK1NeM5SFMPWwe7tW'      // Replace with your Ethereal Email password
-  }
-});
-
-// Email sending function
-async function sendEmail(userEmail) {
-  try {
-    const info = await transporter.sendMail({
-      from: 'karlee46@ethereal.email', // Replace with your Ethereal Email address
-      to: userEmail,
-      subject: 'Test Email',
-      text: 'This is a test email sent from Nodemailer using Ethereal Email.'
-    });
-    console.log('Email sent: ' + info.messageId);
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
-
-// Route for sending a test email
-router.get('/send-email', async (req, res) => {
-  try {
-    // Replace with the email you want to send the test email to
-    const recipientEmail = 'lucas.a.markowicz@gmail.com';
-
-    await sendEmail(recipientEmail);
-    res.json({ message: 'Test email sent successfully.' });
-  } catch (error) {
-    console.error('Error sending test email:', error);
-    res.status(500).json({ message: 'Failed to send test email.' });
   }
 });
 
