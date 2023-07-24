@@ -65,7 +65,7 @@ const Register = () => {
         />
 
         <button type="submit" className="control">
-          Register
+          Sign Up
         </button>
       </form>
       <p>Do you already have an account? You can log in by clicking the following button:</p>
