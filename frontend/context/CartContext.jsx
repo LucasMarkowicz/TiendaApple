@@ -6,10 +6,9 @@ export const useCartContext = () => useContext(CartContext);
 
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
-  const [cartId, setCartId] = useState(null); // Agregar estado para almacenar el ID del carrito
+  const [cartId, setCartId] = useState(null); 
 
   useEffect(() => {
-    // Obtener el ID del carrito de las cookies del navegador al cargar la página
     const savedCartId = getCartIdFromCookies();
     if (savedCartId) {
       setCartId(savedCartId);
@@ -17,7 +16,6 @@ export default function CartProvider({ children }) {
   }, []);
 
   
-  // Obtener el ID del carrito de las cookies del navegador
   const getCartIdFromCookies = () => {
     const cookies = document.cookie.split("; ");
     const cartIdCookie = cookies.find((cookie) => cookie.startsWith("cartId="));
@@ -31,8 +29,8 @@ export default function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cart,
-        cartId, // Agregar el ID del carrito al contexto
-        setCartId, // Agregar la función para establecer el ID del carrito al contexto
+        cartId, 
+        setCartId, 
       }}
     >
       {children}

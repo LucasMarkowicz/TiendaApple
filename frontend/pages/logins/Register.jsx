@@ -5,7 +5,7 @@ import './Shared.css';
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const role = 'user'; // Establecer el rol como 'user' por defecto
+  const role = 'user'; 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -22,21 +22,18 @@ const Register = () => {
       const data = await response.json();
 
       if (data.success) {
-        // Registro exitoso, redireccionar a la página de inicio de sesión
         navigate('/login');
       } else {
-        // Mostrar mensaje de error en caso de registro fallido
         setError(data.error);
       }
     } catch (error) {
-      // Manejar errores de red u otros errores imprevistos
       console.error(error);
       setError('Error en el servidor');
     }
   };
 
   const handleLogin = () => {
-    navigate('/login'); // Redirige a la página de inicio de sesión
+    navigate('/login'); 
   };
 
   return (

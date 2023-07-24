@@ -86,7 +86,6 @@ router.post("/", accessRole(['admin']), async (req, res) => {
       category
     );
     res.send("Producto agregado exitosamente");
-    //io.emit("addProduct", newProduct);
   } catch (error) {
     logger.error("Error en la ruta POST 'api/products/':", error);
     res.status(500).send(productErrors.PRODUCT_ADD_ERROR);
@@ -119,7 +118,6 @@ router.delete("/:pid", accessRole(['admin']), async (req, res) => {
     } else {
       await manager.deleteProduct(pid);
       res.send("Producto eliminado exitosamente");
-      //io.emit("deleteProduct", pid);
     }
   } catch (error) {
     logger.error(`Error en la ruta DELETE 'api/products/:pid': ${error}`);

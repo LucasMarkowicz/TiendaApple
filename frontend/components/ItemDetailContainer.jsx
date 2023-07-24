@@ -6,7 +6,7 @@ import { useCartContext } from '../context/CartContext.jsx';
 export default function ItemDetailContainer() {
   const { pid } = useParams();
   const [data, setData] = useState(null);
-  const { cartId } = useCartContext(); // Obtener el cartId del contexto
+  const { cartId } = useCartContext(); 
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,7 +34,7 @@ export default function ItemDetailContainer() {
   }, [pid]);
   
 
-  const addToCart = async (quantity) => { // Recibe la cantidad como parámetro
+  const addToCart = async (quantity) => { 
     try {
       const response = await fetch(`https://api.tiendaappleimport.online/api/carts/${cartId}/products/${pid}`, {
         method: "POST",
@@ -42,7 +42,7 @@ export default function ItemDetailContainer() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ quantity }), // Enviar la cantidad al carrito
+        body: JSON.stringify({ quantity }), 
       });
   
       const data = await response.json();

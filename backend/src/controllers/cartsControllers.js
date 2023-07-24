@@ -19,7 +19,6 @@ const mercadopago = require("mercadopago");
 
 
 
-// endpoints carrito
 
 router.post("/", cartVerification, accessRole(['admin', 'user']), async (req, res) => {
   try {
@@ -42,7 +41,7 @@ router.get("/:cid", accessRole(['admin', 'user']), async (req, res) => {
     const cid = req.params.cid;
     const cart = await cartManager.getCart(cid);
     if (cart) {
-      res.json(cart); // Devuelve el carrito como respuesta en formato JSON
+      res.json(cart); 
     } else {
       res.status(404).json({ error: cartErrors.CART_NOT_FOUND });
     }
@@ -58,11 +57,11 @@ router.get("/:cid", accessRole(['admin', 'user']), async (req, res) => {
 router.post("/:cid/products/:pid", checkCartOwnership, accessRole(['admin', 'user']), async (req, res) => {
   try {
     const { cid, pid } = req.params;
-    const { quantity } = req.body; // Obtener la cantidad del cuerpo de la solicitud
+    const { quantity } = req.body; 
 
-    const updatedCart = await cartManager.addProductToCart(cid, pid, quantity); // Pasar la cantidad a cartManager.addProductToCart
-    updatedCart.calculateSubtotals(); // Calcular los subtotales y el total después de agregar el producto
-    await updatedCart.save(); // Guardar los cambios en la base de datos
+    const updatedCart = await cartManager.addProductToCart(cid, pid, quantity); 
+    updatedCart.calculateSubtotals(); 
+    await updatedCart.save(); 
     res.send(updatedCart);
   } catch (error) {
     logger.error("Error en la ruta POST 'api/carts/:cid/products/:pid':", error);
@@ -75,9 +74,9 @@ router.delete("/:cid/products/:pid", checkCartOwnership, accessRole(['admin', 'u
   try {
     const { cid, pid } = req.params;
     const updatedCart = await cartManager.removeProductFromCart(cid, pid);
-    updatedCart.calculateSubtotals(); // Calcular los subtotales después de eliminar el producto
-    updatedCart.total = updatedCart.products.reduce((total, cartProduct) => total + cartProduct.subtotal, 0); // Recalcular el total sumando los subtotales de los productos restantes
-    await updatedCart.save(); // Guardar los cambios en la base de datos
+    updatedCart.calculateSubtotals(); 
+    updatedCart.total = updatedCart.products.reduce((total, cartProduct) => total + cartProduct.subtotal, 0); 
+    await updatedCart.save(); 
     res.json(updatedCart);
   } catch (error) {
     logger.error("Error en la ruta DELETE 'api/carts/:cid/products/:pid':", error);
@@ -91,8 +90,8 @@ router.put("/:cid/products/:pid", accessRole(['admin', 'user']), async (req, res
     const { cid, pid } = req.params;
     const { quantity } = req.body;
     const updatedCart = await cartManager.updateProductQuantity(cid, pid, quantity);
-    updatedCart.calculateSubtotals(); // Calcular los subtotales y el total después de actualizar la cantidad
-    await updatedCart.save(); // Guardar los cambios en la base de datos
+    updatedCart.calculateSubtotals(); 
+    await updatedCart.save(); 
     res.json(updatedCart);
   } catch (error) {
     logger.error("Error en la ruta PUT 'api/carts/:cid/products/:pid':", error);
@@ -107,7 +106,7 @@ router.delete("/:cid", checkCartOwnership, accessRole(['admin', 'user']), async 
     const cid = req.params.cid;
     const cart = await cartManager.clearCart(cid);
 
-    // Agregamos estas líneas para recalcular los subtotales y el total
+    
     cart.calculateSubtotals();
     await cart.save();
 
@@ -146,24 +145,24 @@ router.post("/:cid/purchase", checkCartOwnership, accessRole("user"), async (req
       }
     }
 
-    // Calcular subtotales antes de generar el ticket
+   
     cart.calculateSubtotals();
 
     const code = Math.random().toString(36).substr(2, 10);
     const products = cart.toObject().products;
-    const total = cart.total; // Obtener el total del carrito
+    const total = cart.total; 
 
-    const ticket = new Ticket({ code, purchaser, products, total }); // Agregar el total al objeto del ticket
+    const ticket = new Ticket({ code, purchaser, products, total }); 
     await ticket.save();
 
-    // Actualizar stock de los productos y guardar cambios
+
     for (const cartProduct of cart.products) {
       const product = await Product.findById(cartProduct.product._id);
       product.stock -= cartProduct.quantity;
       await product.save();
     }
 
-    // Vaciar el carrito y guardar cambios
+  
     cart.products = [];
     cart.calculateSubtotals();
     await cart.save();
@@ -176,31 +175,30 @@ router.post("/:cid/purchase", checkCartOwnership, accessRole("user"), async (req
 });
 
 
-// En la ruta /checkout
+
 router.post("/checkout", async (req, res) => {
   try {
-    // Obtiene los datos del carrito enviados desde el frontend
+    
     const { cartId, total } = req.body;
 
-    // Crea la preferencia de pago en MercadoPago
+   
     const preference = await mercadopago.preferences.create({
       items: [
         {
-          title: "Compra en Tienda Apple Import", // Cambia el título según tus necesidades
+          title: "Compra en Tienda Apple Import", 
           quantity: 1,
           unit_price: parseFloat(total),
         },
       ],
-      external_reference: cartId, // Utiliza el cartId como referencia externa para identificar la compra en tu sistema
+      external_reference: cartId, 
       back_urls: {
-        success: "https://tiendaappleimport.online/success", // URL de éxito en tu frontend
-        failure: "https://tiendaappleimport.online/failure", // URL de fallo en tu frontend
-        pending: "https://tiendaappleimport.online/pending", // URL de pago pendiente en tu frontend
+        success: "https://tiendaappleimport.online/success", 
+        failure: "https://tiendaappleimport.online/failure", 
+        pending: "https://tiendaappleimport.online/pending", 
       },
       auto_return: "approved",
     });
 
-    // Responde al frontend con el ID de la preferencia de pago
     res.json({ preferenceId: preference.body.id });
   } catch (error) {
     console.error("Error creating preference:", error);

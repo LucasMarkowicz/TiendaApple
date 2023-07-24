@@ -7,7 +7,7 @@ export default function ItemDetail({ data, addToCart }) {
 
   const onAdd = (quantity) => {
     setGoToCart(true);
-    addToCart(quantity); // Llamar a la función addToCart pasando la cantidad
+    addToCart(quantity); 
   };
 
   return (

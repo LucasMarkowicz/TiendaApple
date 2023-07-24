@@ -34,11 +34,11 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   const handleRegister = () => {
-    navigate('/register'); // Redirige a la página "/register"
+    navigate('/register'); 
   };
 
   const handleGithubLogin = () => {
-    window.location.href = 'https://api.tiendaappleimport.online/auth/github'; // Redirige a la página de inicio de sesión de GitHub
+    window.location.href = 'https://api.tiendaappleimport.online/auth/github'; 
   };
 
   return (

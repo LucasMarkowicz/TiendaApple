@@ -18,17 +18,15 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUiExpress = require("swagger-ui-express");
 const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
-const cookie = require("cookie"); // Importar la biblioteca 'cookie'
+const cookie = require("cookie"); 
 
-// Middleware personalizado para configurar opciones comunes para todas las cookies
 app.use((req, res, next) => {
-  // Opciones comunes para todas las cookies
   const cookieOptions = {
     domain: ".tiendaappleimport.online",
     sameSite: 'lax'
   };
 
-  // Aplicar las opciones comunes a todas las cookies establecidas
+
   res.cookie = function (name, value, options) {
     const mergedOptions = Object.assign({}, cookieOptions, options);
     return res.append("Set-Cookie", cookie.serialize(name, value, mergedOptions));
@@ -49,7 +47,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-// Configuración de la sesión
 const sessionOptions = {
   secret: "process.env.SECRET",
   resave: false,

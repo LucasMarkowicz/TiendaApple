@@ -29,7 +29,7 @@ const ticketSchema = new mongoose.Schema({
     required: true,
   },
   products: {
-    type: [ticketProductSchema], // Definir products como un arreglo de objetos con la misma estructura que en el carrito
+    type: [ticketProductSchema], 
     required: true,
   },
   total: {

@@ -2,7 +2,7 @@ import React from "react";
 import Item from "./Item.jsx";
 
 export default function ItemList({ data = { products: [] } }) {
-  const { products } = data; // Desestructurar el array de productos de 'data'
+  const { products } = data; 
 
   return (
     <div>

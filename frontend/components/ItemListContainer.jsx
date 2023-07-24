@@ -27,9 +27,8 @@ const ItemListContainer = () => {
         const products = await response.json();
         setData(products);
 
-        console.log(products); // Imprimir el arreglo de productos en la consola
+        console.log(products); 
 
-        // Realizar el fetch POST para la creación del carrito
         const createCart = async () => {
           try {
             const response = await fetch("https://api.tiendaappleimport.online/api/carts", {
@@ -46,9 +45,8 @@ const ItemListContainer = () => {
 
             const data = await response.json();
             console.log("ID del carrito:", data.cartId);
-            setCartId(data.cartId); // Guardar el ID del carrito en el contexto
+            setCartId(data.cartId); 
 
-            // Guardar el ID del carrito en las cookies del navegador
             document.cookie = `cartId=${data.cartId}; path=/;`;
           } catch (error) {
             console.error("Error al crear el carrito:", error);

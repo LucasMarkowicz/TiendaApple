@@ -56,7 +56,6 @@ export default function Cart() {
 
       if (response.ok) {
         const { preferenceId } = await response.json();
-        // Redireccionar al usuario a la página de pago de MercadoPago
         window.location.href = `https://www.mercadopago.com.ar/checkout/v1/redirect?preference_id=${preferenceId}`;
       } else {
         console.error("Error creating preference:", response);

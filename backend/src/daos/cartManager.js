@@ -154,10 +154,8 @@ class CartManager {
         );
 
         if (productInCartIndex !== -1) {
-          // Si el producto ya existe en el carrito, actualizar la cantidad
           cart.products[productInCartIndex].quantity = quantity;
         } else {
-          // Si el producto no existe en el carrito, agregarlo
           const productToAdd = await productDao.getProductById(_id);
           if (!productToAdd) {
             throw new Error(cartErrors.PRODUCT_NOT_FOUND);

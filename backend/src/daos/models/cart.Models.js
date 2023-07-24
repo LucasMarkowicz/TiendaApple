@@ -11,11 +11,11 @@ const cartSchema = new mongoose.Schema({
         },
         quantity: {
           type: Number,
-          default: 1, // Asignar una cantidad predeterminada si no se especifica
+          default: 1, 
         },
         subtotal: {
           type: Number,
-          default: 0, // Asignar un subtotal predeterminado de 0
+          default: 0, 
         },
       }
     ],

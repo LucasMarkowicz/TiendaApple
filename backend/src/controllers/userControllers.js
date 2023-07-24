@@ -7,7 +7,7 @@ const logger = require("../config/logger.js");
 const accessRole = require("../middlewares/accessRole.js")
 
 
-// Ruta de inicio de sesión
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -20,10 +20,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Ruta de registro
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
-  const role = "user"; // Seteamos el rol directamente como "user"
+  const role = "user"; 
 
   try {
     await users.registerUser({ email, password, role });
@@ -34,10 +33,10 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Ruta de cierre de sesión
+
 router.post('/logout', accessRole(['admin', 'user']), (req, res) => {
   req.session.destroy(() => {
-    res.clearCookie('connect.sid'); // Limpiar la cookie de sesión
+    res.clearCookie('connect.sid'); 
     res.json({ success: true, message: 'Cierre de sesión exitoso' });
   });
 });
@@ -45,10 +44,8 @@ router.post('/logout', accessRole(['admin', 'user']), (req, res) => {
 
 router.get('/current', (req, res) => {
   if (req.session.user) {
-    // El usuario ha iniciado sesión
     res.json({ isLoggedIn: true, user: req.session.user });
   } else {
-    // El usuario no ha iniciado sesión
     res.json({ isLoggedIn: false });
   }
 });
@@ -71,7 +68,7 @@ router.get("/", accessRole(['admin']), async (req, res) => {
 
 router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   try {
-    const deletedUsers = await users.removeInactiveUsers(10); // Eliminar usuarios inactivos de los últimos 30 minutos
+    const deletedUsers = await users.removeInactiveUsers(30); 
     res.json({ message: `Usuarios eliminados por inactividad` });
   } catch (error) {
     logger.error("Error en la ruta DELETE '/users/inactive':", error);
