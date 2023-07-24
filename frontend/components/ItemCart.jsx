@@ -18,7 +18,6 @@ export default function ItemCart({ product }) {
       );
 
       if (response.ok) {
-        // If the product was successfully removed from the cart, reload the cart data
         window.location.reload();
       } else {
         console.error("Failed to delete item from cart.");

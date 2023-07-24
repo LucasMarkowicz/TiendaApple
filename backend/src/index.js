@@ -115,18 +115,6 @@ mercadopago.configure({
   access_token: process.env.MERCADOPAGO,
 });
 
-
-app.get("/ejemplo", (req, res) => {
-  // Establecer la cookie utilizando res.cookie() que hemos configurado previamente
-  res.cookie("ejemplo_cookie", "valor_de_la_cookie", {
-    // Puedes agregar opciones específicas para esta cookie si lo deseas
-    // Por ejemplo, una fecha de vencimiento para que expire después de un tiempo:
-    expires: new Date(Date.now() + 3600000), // Expira en una hora (3600000 ms)
-  });
-
-  res.send("Cookie de ejemplo establecida");
-});
-
 server.listen(port, () => {
   console.log(`Servidor iniciado en ${port}`);
 });
