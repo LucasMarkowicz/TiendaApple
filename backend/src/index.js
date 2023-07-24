@@ -40,8 +40,8 @@ const sessionOptions = {
     ttl: 120000,
   }),
   cookie: {
-    secure: true,      // Marcar como true para enviar cookies solo a través de HTTPS
-    httpOnly: true,    // Impedir que las cookies sean accesibles a través de JavaScript
+    secure: false,      // Marcar como true para enviar cookies solo a través de HTTPS
+    httpOnly: false,    // Impedir que las cookies sean accesibles a través de JavaScript
     sameSite: "none",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
   },
 };
