@@ -35,11 +35,18 @@ router.post('/register', async (req, res) => {
 });
 
 
-router.post('/logout', accessRole(['admin', 'user']), (req, res) => {
-  req.session.destroy(() => {
-    res.clearCookie('connect.sid'); 
-    res.json({ success: true, message: 'Cierre de sesión exitoso' });
-  });
+router.post('/logout', accessRole(['admin', 'user']), async (req, res) => {
+  try {
+    const userId = req.session.user._id; 
+    await users.logoutUser(userId);
+    req.session.destroy(() => {
+      res.clearCookie('connect.sid'); 
+      res.json({ success: true, message: 'Cierre de sesión exitoso' });
+    });
+  } catch (error) {
+    logger.error(`Error en la ruta POST '/logout': ${error}`);
+    res.status(500).json({ success: false, error: userErrors.GENERAL_ERROR });
+  }
 });
 
 

@@ -51,6 +51,25 @@ class UserManager {
     }
   }
 
+  async logoutUser(userId) {
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error(userErrors.USER_NOT_FOUND);
+      }
+
+      // Update the lastActive field to the current date and time.
+      user.lastActive = moment();
+      await user.save(); // Save the changes to the user document.
+
+      return user;
+    } catch (error) {
+      console.error(`Error al hacer logout del usuario: ${error}`);
+      throw new Error(userErrors.GENERAL_ERROR);
+    }
+  }
+
   async getUserRole(email) {
     try {
       const user = await User.findOne({ email });
