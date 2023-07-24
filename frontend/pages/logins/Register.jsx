@@ -70,7 +70,7 @@ const Register = () => {
       </form>
       <p>Do you already have an account? You can log in by clicking the following button:</p>
       <button  onClick={handleLogin}>
-        Iniciar sesión
+        Login
       </button>
     </div>
   );
