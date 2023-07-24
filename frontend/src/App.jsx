@@ -15,7 +15,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://tienda-apple-import.onrender.com/api/users/current', { credentials: 'include' })
+    fetch('https://api.tiendaappleimport.online/api/users/current', { credentials: 'include' })
       .then(response => response.json())
       .then(data => {
         setIsLoggedIn(data.isLoggedIn);

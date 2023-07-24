@@ -11,7 +11,7 @@ export default function ItemDetailContainer() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://tienda-apple-import.onrender.com/api/products/${pid}`, {
+        const response = await fetch(`https://api.tiendaappleimport.online/api/products/${pid}`, {
           method: 'GET', 
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default function ItemDetailContainer() {
 
   const addToCart = async (quantity) => { // Recibe la cantidad como parámetro
     try {
-      const response = await fetch(`http://localhost:8080/api/carts/${cartId}/products/${pid}`, {
+      const response = await fetch(`https://api.tiendaappleimport.online/api/carts/${cartId}/products/${pid}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
