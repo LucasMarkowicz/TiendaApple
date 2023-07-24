@@ -43,7 +43,7 @@ const sessionOptions = {
     secure: true,       
     httpOnly: true,     
     sameSite: "lax",   
-    domain: ".tiendaappleimport.online" 
+    domain: "api.tiendaappleimport.online" 
   },
 };
 
