@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://tienda-apple-import-front.onrender.com",
   credentials: true,
 };
 
