@@ -27,7 +27,7 @@ async function sendEmail(userEmail) {
     // Crear el contenido del correo electrónico utilizando Mailgen
     const email = {
       body: {
-        name: userEmail.split('@')[0], // Nombre del usuario (puedes personalizar esto)
+        name: userEmail, // Nombre del usuario (puedes personalizar esto)
         intro: 'Your account has been deleted due to inactivity.',
         outro: 'For any questions, please do not hesitate to contact us', // Información adicional o despedida
       },
