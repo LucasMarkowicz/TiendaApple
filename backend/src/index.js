@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
-  origin: "https://tienda-apple-import-front.onrender.com",
+  origin: "https://tienda-apple-import-front.onrender.com/",
   credentials: true,
 };
 
@@ -40,6 +40,8 @@ const sessionOptions = {
     ttl: 120000,
   }),
   cookie: {
+    secure: true,      // Marcar como true para enviar cookies solo a través de HTTPS
+    httpOnly: true,    // Impedir que las cookies sean accesibles a través de JavaScript
     sameSite: "none",  // Configurar el atributo SameSite en "None" para permitir solicitudes entre dominios
   },
 };
@@ -56,7 +58,7 @@ app.get(
   passport.authenticate("github", { failureRedirect: "https://tienda-apple-import-front.onrender.com/login" }),
   (req, res) => {
     req.session.user = req.user;
-    res.redirect("https://tienda-apple-import-front.onrender.com/");
+    res.redirect("https://tienda-apple-import-front.onrender.com");
   }
 );
 
@@ -101,7 +103,7 @@ mercadopago.configure({
 });
 
 server.listen(port, () => {
-  console.log(`Servidor iniciado en http://localhost:${port}`);
+  console.log(`Servidor iniciado en ${port}`);
 });
 
 
