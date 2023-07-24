@@ -40,10 +40,7 @@ const sessionOptions = {
     ttl: 120000,
   }),
   cookie: {
-    secure: true,       
-    httpOnly: true,     
-    sameSite: "lax",   
-    domain: "api.tiendaappleimport.online" 
+    sameSite: "none",   
   },
 };
 
