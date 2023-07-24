@@ -43,14 +43,14 @@ const Login = ({ setIsLoggedIn }) => {
 
   return (
     <div className="login-card">
-      <h2>Iniciar sesión</h2>
+      <h2>Login</h2>
       {error && <p>{error}</p>}
       <form className="login-form" onSubmit={handleLogin}>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Correo electrónico"
+          placeholder="Email"
           required
           className='control'
         />
@@ -58,17 +58,17 @@ const Login = ({ setIsLoggedIn }) => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña"
+          placeholder="Password"
           required
           className='control'
         />
         <button type="submit" className="control">Iniciar sesión</button>
       </form>
-      <p>También puedes iniciar sesión con GitHub:</p>
+      <p>You could also log in with GitHub:</p>
       <button onClick={handleGithubLogin} className="control github-button">
-        Iniciar sesión con GitHub
+        Log in with GitHub
       </button>
-      <p>No tienes cuenta? Puedes presionar el siguiente botón para registrarte:</p>
+      <p>Don't have an account? Press the following button to register:</p>
       <button onClick={handleRegister} className="register-button">Registrarse</button>
     </div>
   );

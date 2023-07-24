@@ -38,7 +38,7 @@ const Register = () => {
 
   return (
     <div className="login-card">
-      <h2>Registro</h2>
+      <h2>Register</h2>
       {error && <p>{error}</p>}
       <form className="login-form" onSubmit={handleRegister}>
         <div className="username">
@@ -46,7 +46,7 @@ const Register = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Correo electrónico"
+            placeholder="Email"
             autoComplete="off"
             spellCheck="false"
             className="control"
@@ -58,17 +58,17 @@ const Register = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña"
+          placeholder="Password"
           spellCheck="false"
           className="control"
           required
         />
 
         <button type="submit" className="control">
-          Registrarse
+          Register
         </button>
       </form>
-      <p>¿Ya tienes una cuenta? Puedes iniciar sesión haciendo clic en el siguiente botón:</p>
+      <p>Do you already have an account? You can log in by clicking the following button:</p>
       <button  onClick={handleLogin}>
         Iniciar sesión
       </button>

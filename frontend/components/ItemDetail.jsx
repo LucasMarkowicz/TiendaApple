@@ -6,8 +6,11 @@ export default function ItemDetail({ data, addToCart }) {
   const [goToCart, setGoToCart] = useState(false);
 
   const onAdd = (quantity) => {
-    setGoToCart(true);
-    addToCart(quantity); 
+    setTimeout(() => {
+      setGoToCart(true);
+    }, 1000);
+
+    addToCart(quantity);
   };
 
   return (
