@@ -83,8 +83,8 @@ const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
   auth: {
-    user: 'karlee46@ethereal.email',
-    pass: 'hnK1NeM5SFMPWwe7tW'
+    user: 'karlee46@ethereal.email', // Replace with your Ethereal Email address
+    pass: 'hnK1NeM5SFMPWwe7tW'      // Replace with your Ethereal Email password
   }
 });
 
@@ -92,10 +92,10 @@ const transporter = nodemailer.createTransport({
 async function sendEmail(userEmail) {
   try {
     const info = await transporter.sendMail({
-      from: 'your@email.com', // Replace with your email address
+      from: 'karlee46@ethereal.email', // Replace with your Ethereal Email address
       to: userEmail,
       subject: 'Test Email',
-      text: 'This is a test email sent from Nodemailer.'
+      text: 'This is a test email sent from Nodemailer using Ethereal Email.'
     });
     console.log('Email sent: ' + info.messageId);
   } catch (error) {
