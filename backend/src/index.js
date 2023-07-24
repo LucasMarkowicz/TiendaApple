@@ -42,7 +42,8 @@ const sessionOptions = {
   cookie: {
     secure: true,       
     httpOnly: true,     
-    sameSite: "none",   
+    sameSite: "lax",   
+    domain: ".tiendaappleimport.online" 
   },
 };
 
