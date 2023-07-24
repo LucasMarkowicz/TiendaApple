@@ -15,7 +15,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'https://tienda-apple-import.onrender.com/auth/github/callback',
+      callbackURL: 'https://tiendaappleimport.online/auth/github/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
