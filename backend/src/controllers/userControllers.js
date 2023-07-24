@@ -69,29 +69,29 @@ router.get("/", accessRole(['admin']), async (req, res) => {
 
 router.delete("/inactive", accessRole(['admin']), async (req, res) => {
   try {
-    const deletedUsers = await users.removeInactiveUsers(30); 
-    
-    for (const user of deletedUsers) {
-      await sendEmail(user.email);
-    }
+    const deletedUsers = await users.removeInactiveUsers(30);
+    console.log("Usuarios eliminados por inactividad:", deletedUsers);
+
+    // Notify users via email
+    const deletedUserEmails = deletedUsers.map(user => user.email);
+    await sendEmailToUsers(deletedUserEmails);
 
     res.json({ message: `Usuarios eliminados por inactividad` });
   } catch (error) {
-    logger.error("Error en la ruta DELETE '/users/inactive':", error);
+    console.error("Error en la ruta DELETE '/users/inactive':", error);
     res.status(500).json({ message: userErrors.GENERAL_ERROR });
   }
 });
 
-router.get('/sendmail', async (req, res) => {
+async function sendEmailToUsers(emails) {
   try {
-    const userEmail = 'lucas.a.markowicz@gmail.com'; // Correo electrónico del destinatario (cambia esto por el correo que desees).
-    await sendEmail(userEmail);
-    res.send('Correo electrónico enviado correctamente');
+    // Assuming the sendEmail function can handle sending to multiple recipients.
+    await sendEmail(emails);
   } catch (error) {
     console.error('Error al enviar el correo electrónico:', error);
-    res.status(500).send('Error al enviar el correo electrónico');
+    throw new Error('Error al enviar el correo electrónico');
   }
-});
+}
 
 module.exports = router;
 

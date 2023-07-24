@@ -29,7 +29,7 @@ async function sendEmail(userEmail) {
       body: {
         name: userEmail.split('@')[0], // Nombre del usuario (puedes personalizar esto)
         intro: 'Your account has been deleted due to inactivity.',
-        outro: 'For any questions, please contact us at support@example.com', // Información adicional o despedida
+        outro: 'For any questions, please do not hesitate to contact us', // Información adicional o despedida
       },
     };
 
