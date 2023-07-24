@@ -43,7 +43,7 @@ const sessionOptions = {
     secure: true,       
     httpOnly: true,     
     sameSite: "none",   
-    domain: ".onrender.com" 
+    domain: "https://tiendaappleimport.online" 
   },
 };
 
@@ -56,10 +56,10 @@ app.get("/auth/github", passport.authenticate("github"));
 
 app.get(
   "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "https://tienda-apple-import-front.onrender.com/login" }),
+  passport.authenticate("github", { failureRedirect: "https://tiendaappleimport.online" }),
   (req, res) => {
     req.session.user = req.user;
-    res.redirect("https://tienda-apple-import-front.onrender.com");
+    res.redirect("https://tiendaappleimport.online");
   }
 );
 

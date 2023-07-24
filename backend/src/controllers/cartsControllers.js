@@ -212,9 +212,9 @@ router.post("/checkout", async (req, res) => {
       ],
       external_reference: cartId, // Utiliza el cartId como referencia externa para identificar la compra en tu sistema
       back_urls: {
-        success: "https://tienda-apple-import-front.onrender.com/success", // URL de éxito en tu frontend
-        failure: "https://tienda-apple-import-front.onrender.com/failure", // URL de fallo en tu frontend
-        pending: "https://tienda-apple-import-front.onrender.com/pending", // URL de pago pendiente en tu frontend
+        success: "https://tiendaappleimport.online/success", // URL de éxito en tu frontend
+        failure: "https://tiendaappleimport.online/failure", // URL de fallo en tu frontend
+        pending: "https://tiendaappleimport.online/pending", // URL de pago pendiente en tu frontend
       },
       auto_return: "approved",
     });
