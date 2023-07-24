@@ -13,6 +13,7 @@ export default function Cart() {
 
   useEffect(() => {
     const fetchCartData = async () => {
+      window.location.reload();
       try {
         const response = await fetch(
           `https://api.tiendaappleimport.online/api/carts/${cartId}`,

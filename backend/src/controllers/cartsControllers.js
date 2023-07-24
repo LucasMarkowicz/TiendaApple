@@ -102,25 +102,6 @@ router.put("/:cid/products/:pid", accessRole(['admin', 'user']), async (req, res
 
 
 
-
-router.put("/:cid", accessRole(['admin', 'user']), async (req, res) => {
-  try {
-    const { cid } = req.params;
-    const productsToUpdate = req.body;
-
-    const updatedCart = await cartManager.updateProductsInCart(cid, productsToUpdate);
-    updatedCart.calculateSubtotals(); // Calcular los subtotales y el total después de actualizar los productos
-    await updatedCart.save(); // Guardar los cambios en la base de datos
-
-    res.json(updatedCart);
-  } catch (error) {
-    logger.error("Error en la ruta PUT 'api/carts/:cid/products':", error);
-    res.status(500).json({ message: cartErrors.GENERAL_ERROR });
-  }
-});
-
-
-
 router.delete("/:cid", checkCartOwnership, accessRole(['admin', 'user']), async (req, res) => {
   try {
     const cid = req.params.cid;
